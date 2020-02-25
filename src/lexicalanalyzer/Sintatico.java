@@ -323,11 +323,34 @@ public class Sintatico {
                         token=this.seguinte();
                         if(verificaTokenLexema("}")){
                             //certo
+                        }else{
+                            adicionarErro("falta }");
                         }
-                    }
-                        
+                    }else{
+                        adicionarErro("falta {");
+                    }    
+                }else{
+                    adicionarErro("falta )");
                 }
+            }else{
+                adicionarErro("falta (");
+            }
+        }else{
+            adicionarErro("erro palavra n reconhecida");
+        }
+    }
+    
+    public void read(){
+        if(verificaTokenLexema("read")){
+            token=this.seguinte();
+            if(verificaTokenLexema("(")){
+                identificadorsemfuncao();
+                token=this.seguinte();
             }
         }
+    }
+    
+    public void identificadorsemfuncao(){
+        
     }
 }
