@@ -226,16 +226,42 @@ public class Sintatico {
                     if(verificaTokenLexema("extends")){
                         token=this.seguinte();
                         if(verificaTokenTipo("Id")){
-                            
+                            token=this.seguinte();
+                            if(verificaTokenLexema("{")){
+                                contStruct();
+                                if(verificaTokenLexema("}")){
+                                    //certo
+                                }else{
+                                    adicionarErro("erro não contem }");
+                                }
+                            }else{
+                                adicionarErro("erro não contem {");
+                            }
+                        }else{
+                            adicionarErro("erro não contem identificador valido");
                         }
                     }else if(verificaTokenLexema("{")){
-                        
+                        contStruct();
+                        if(verificaTokenLexema("}")){
+                                    //certo
+                                }
+                    }else{
+                        adicionarErro("Erro, não contem nem 'Extends' nem {");
                     }
+                }else{
+                    adicionarErro("erro não contem identificador valido");
                 }
+            }else{
+                adicionarErro("erro não contem struct");
             }
+        }else{
+            adicionarErro("erro");
         }
     }
     
+    public void contStruct(){
+        
+    }
     
     public void variaveis() {
         if (verificaTokenLexema("var")) {
