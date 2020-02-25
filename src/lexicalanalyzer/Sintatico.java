@@ -309,4 +309,25 @@ public class Sintatico {
         }
         
     }
+    
+    public void repeticaolaco(){
+        if(verificaTokenLexema("while")){
+            token=this.seguinte();
+            if(verificaTokenLexema("(")){
+                //expressaologicarelacional();
+                token=this.seguinte();
+                if(verificaTokenLexema(")")){
+                    token=this.seguinte();
+                    if(verificaTokenLexema("{")){
+                        //corpo();
+                        token=this.seguinte();
+                        if(verificaTokenLexema("}")){
+                            //certo
+                        }
+                    }
+                        
+                }
+            }
+        }
+    }
 }
