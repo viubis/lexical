@@ -432,7 +432,7 @@ public class Sintatico {
                 condicional();
                 if (verificaTokenLexema(")")) {
                     token = this.seguinte();
-                    if (verificaTokenLexema("entao")){
+                    if (verificaTokenLexema("then")){
                             token = this.seguinte();                   
                         if (verificaTokenLexema("{")) {
                             token = this.seguinte();
@@ -445,7 +445,7 @@ public class Sintatico {
                             adicionarErro("faltou '{'");
                         }
                     }else{
-                        adicionarErro("Faltou 'entao'");
+                        adicionarErro("Faltou 'then'");
                     }
                 } else {
                     adicionarErro("faltou ')'");
@@ -460,11 +460,11 @@ public class Sintatico {
     }
     
      private void condicional() {
-        if (verificaTokenTipo("numero") || verificaTokenTipo("identificador")) {
+        if (verificaTokenTipo("int") || verificaTokenTipo("identificador")) {
             token = this.seguinte();
             if (verificaTokenTipo("opRelacional") || verificaTokenTipo("opLogico")) {
                 token = this.seguinte();
-                if (verificaTokenTipo("numero") || verificaTokenTipo("identificador")) {
+                if (verificaTokenTipo("int") || verificaTokenTipo("identificador")) {
                     token = this.seguinte();
                 } else{
                     adicionarErro("faltou o segundo argumento da condicao");
