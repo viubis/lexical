@@ -340,17 +340,88 @@ public class Sintatico {
         }
     }
     
+
+    
     public void read(){
         if(verificaTokenLexema("read")){
             token=this.seguinte();
             if(verificaTokenLexema("(")){
                 identificadorsemfuncao();
                 token=this.seguinte();
+                if(verificaTokenLexema(",")||verificaTokenLexema(")")){
+                    if(verificaTokenLexema(",")){
+                        while(verificaTokenLexema(",")){
+                            identificadorsemfuncao();
+                            token=this.seguinte();
+                        }
+                        if(verificaTokenLexema(")")){
+                            token=this.seguinte();
+                            if(verificaTokenLexema(";")){
+                                //certo
+                            } else{
+                                adicionarErro("faltou ;");
+                            }
+                        } else{
+                            adicionarErro("faltou )");
+                        }
+                    }else if(verificaTokenLexema(")")){
+                        token=this.seguinte();
+                        if(verificaTokenLexema(";")){
+                            //certo
+                        }else{
+                            adicionarErro("faltou ;");
+                        }
+                    } else{
+                        adicionarErro("faltou )");
+                    }
+                }else{
+                    adicionarErro("Esperado ')' ou ','");
+                }
+            }else{
+                adicionarErro("faltou (");
             }
         }
     }
     
     public void identificadorsemfuncao(){
+        token=this.seguinte();
         
     }
+    
+
+    public void Print(){
+        if(verificaTokenLexema("print")){
+            token=this.seguinte();
+            if(verificaTokenLexema("(")){
+                token=this.seguinte();
+                if(verificaTokenTipo("string")||verificaTokenTipo("numero")||verificaTokenTipo("identificador")){
+                    token=this.seguinte();
+                    while(verificaTokenLexema(",")){
+                        token=this.seguinte();
+                        if(verificaTokenTipo("string")||verificaTokenTipo("numero")||verificaTokenTipo("identificador")){
+                            token=this.seguinte();
+                   
+                        }
+                    }
+                    if(verificaTokenLexema(")")){
+                        if(verificaTokenLexema(";")){
+                            //certo
+                        }else{
+                            adicionarErro("falta ;");
+                        }
+                    }else{
+                        adicionarErro("falta )");
+                    }
+               }else{
+                    adicionarErro("erro tem de ser 'String' , 'numero' ou Identificador");
+                }
+            }else{
+                adicionarErro("falta (");
+            }
+        }else{
+            
+        }
+    return;
+    }
+    
 }
