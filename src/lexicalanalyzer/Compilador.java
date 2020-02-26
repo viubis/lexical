@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Karolyne e Patricia
+ * @author Victor e Pedro
  */
 public class Compilador {
 

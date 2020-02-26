@@ -385,9 +385,28 @@ public class Sintatico {
     
     public void identificadorsemfuncao(){
         token=this.seguinte();
+        if(verificaTokenLexema("local")||verificaTokenLexema("global")){
+            token=this.seguinte();
+            if(verificaTokenLexema(".")){
+                token=this.seguinte();
+                if(verificaTokenTipo("identificador")){
+                    identificador2();
+                }else{
+                    adicionarErro("identificador nao valido");
+                }
+            }else{
+                adicionarErro("falta .");
+            }
+        }else if(verificaTokenTipo("identificador")){
+            identificador2();
+        }else{
+            adicionarErro("identificador nao valido");
+        }
+    }
+   
+    public void identificador2(){
         
     }
-    
 
     public void Print(){
         if(verificaTokenLexema("print")){
@@ -424,7 +443,7 @@ public class Sintatico {
     return;
     }
     
-    public void se() {
+    public void If() {
         if (verificaTokenLexema("if")) {
             token = seguinte();
             if (verificaTokenLexema("(")) {
@@ -536,4 +555,8 @@ public class Sintatico {
         }
     
     }  
+    
+    public void corpo(){
+        
+    }
 }
