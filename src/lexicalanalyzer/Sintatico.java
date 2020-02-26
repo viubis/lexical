@@ -424,4 +424,116 @@ public class Sintatico {
     return;
     }
     
+    public void se() {
+        if (verificaTokenLexema("if")) {
+            token = seguinte();
+            if (verificaTokenLexema("(")) {
+                token = this.seguinte();
+                condicional();
+                if (verificaTokenLexema(")")) {
+                    token = this.seguinte();
+                    if (verificaTokenLexema("entao")){
+                            token = this.seguinte();                   
+                        if (verificaTokenLexema("{")) {
+                            token = this.seguinte();
+                            if (verificaTokenLexema("}")) {
+                                //escreva correto
+                            } else {
+                                adicionarErro("faltou '}'");
+                            }
+                        } else {
+                            adicionarErro("faltou '{'");
+                        }
+                    }else{
+                        adicionarErro("Faltou 'entao'");
+                    }
+                } else {
+                    adicionarErro("faltou ')'");
+                }
+
+            } else {
+                adicionarErro("faltou '('");
+            }
+
+        }
+        return;
+    }
+    
+     private void condicional() {
+        if (verificaTokenTipo("numero") || verificaTokenTipo("identificador")) {
+            token = this.seguinte();
+            if (verificaTokenTipo("opRelacional") || verificaTokenTipo("opLogico")) {
+                token = this.seguinte();
+                if (verificaTokenTipo("numero") || verificaTokenTipo("identificador")) {
+                    token = this.seguinte();
+                } else{
+                    adicionarErro("faltou o segundo argumento da condicao");
+                }
+            } else{
+                adicionarErro("faltou a condicao");
+            }
+        } else {
+            adicionarErro("faltou o primeiro argumento da condicao");
+        }
+        return;
+    }
+//<OpIndice> ::= OperadoresAritmeticos <OpI2> <OpIndice> | <>
+//<OpI2> ::= Numeros | Identificadores  
+//<Vetor> ::= '[' <OpI2><OpIndice> ']' <Matriz> | <>
+//<Matriz> ::= '[' <OpI2><OpIndice> ']' | <>
+
+    public void vetor() {
+        token = this.seguinte();
+        if (verificaTokenLexema("[")) {
+            token = this.seguinte();
+            if (verificaTokenTipo("int") || verificaTokenTipo("identificador")) {
+                opIndice();
+                token = this.seguinte();
+                if (verificaTokenLexema("]")) {
+                    matriz();
+                } else {
+                    adicionarErro("faltou ]");
+                }
+            } else {
+                adicionarErro("faltou indice");
+            }
+        } else {
+            return;
+        }
+    }
+
+    public void opIndice() {
+        token = this.seguinte();
+        if (verificaTokenTipo("opAritimetico")) {
+            token = this.seguinte();
+            if (verificaTokenTipo("int") || verificaTokenTipo("identificador")) {
+                opIndice();
+            } else {
+                adicionarErro("faltou o operando");
+            }
+        } else {
+            return;
+        }
+
+    }
+    public void matriz(){
+    token = this.seguinte();
+        if (verificaTokenLexema("[")) {
+            token = this.seguinte();
+            if (verificaTokenTipo("int") || verificaTokenTipo("identificador")) {
+                opIndice();
+                token = this.seguinte();
+                if (verificaTokenLexema("]")) {
+                    return;
+                } else {
+                    adicionarErro("faltou ]");
+                }
+            } else {
+                adicionarErro("faltou o indice");
+            }
+        } else {
+            return;
+        }
+    
+    }  
 }

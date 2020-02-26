@@ -95,7 +95,7 @@ public class LeituraArquivo {
     }
 
     public void naoContemErros() throws IOException {
-        try (FileWriter file = new FileWriter("Arquivos/" + "saida_" + this.localFile, false)) {
+        try (FileWriter file = new FileWriter("test/" + "saida_" + this.localFile, false)) {
             PrintWriter gravar = new PrintWriter(file);
 
             gravar.println("\n Nao existem erros sintaticos");
