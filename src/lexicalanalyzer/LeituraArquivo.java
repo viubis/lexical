@@ -80,7 +80,7 @@ public class LeituraArquivo {
     }
     
     public void escreverSintatico(ArrayList<Token> tokens, ArrayList<String> erros) throws IOException {
-        try (FileWriter file = new FileWriter("test/Saida/" + "saida" + this.localFile, false)) {
+        try (FileWriter file = new FileWriter("test/exit/" + "saida" + this.localFile, false)) {
             PrintWriter gravar = new PrintWriter(file);
 
             //verifica se existem erros, se não existir uma mensagem é adicionada caso contrário cada erro é escrito
