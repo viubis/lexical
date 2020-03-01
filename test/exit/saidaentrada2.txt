@@ -1,1 +1,1 @@
- 7 Programa não inicia com nenhuma das palavras reservadas
+ 1 faltou {

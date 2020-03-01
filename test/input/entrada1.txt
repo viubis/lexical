@@ -1,4 +1,8 @@
-"cadeia_de Caractere"
-"sem fechar
-"simboloInvalido�"
-"esse simbolo aqui \" para testar"
+const(){
+}
+struct(){
+}
+var(){
+}
+start(){
+}

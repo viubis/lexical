@@ -1,9 +1,8 @@
-// verificar comentario de linha
-/*verificar 
-comentario 
-de bloco*/
-/ 
-//de linha em 
-bloco //
-/*erro
-/*erro*
+const(){
+}
+struct(){
+}
+var(){
+}
+start(){
+}

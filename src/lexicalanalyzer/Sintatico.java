@@ -122,54 +122,24 @@ public class Sintatico {
                 Const();
                 token=this.seguinte();
                 if(verificaTokenLexema("struct")){
-                    //Struct();
+                    Struct();
                     token=this.seguinte();
                     if(verificaTokenLexema("var")){
                         variaveis();
                         token=this.seguinte();
-                        if(verificaTokenLexema("function")||verificaTokenLexema("procedura")){
-                            //funcaoprocedura();
+                        while(verificaTokenLexema("function")||verificaTokenLexema("procedure")){
+                            //funcaoprocedure();
                             token=this.seguinte();
-                            if(verificaTokenLexema("start")){
-                                Start();
-                                if(verificaTokenLexema("53")){
-                                    adicionarErro("depois do fim do programa contém tokens");
-                                }else{
-                                    adicionarErro("Sucesso");
-                                }
-                            }
-                        }else{
-                            if(verificaTokenLexema("start")){
-                                Start();
-                                if(verificaTokenLexema("53")){
-                                    adicionarErro("depois do fim do programa contém tokens");
-                                }else{
-                                    adicionarErro("Sucesso");
-                                }
+                        }
+                        if(verificaTokenLexema("start")){
+                            Start();
+                            if(verificaTokenLexema("53")){
+                                adicionarErro("depois do fim do programa contém tokens");
+                            }else{
+                                //certo
                             }
                         }
-                    }
-                }
-            }else{
-                if(verificaTokenLexema("struct")){
-                    //Struct();
-                    token=this.seguinte();
-                    if(verificaTokenLexema("var")){
-                        variaveis();
-                        token=this.seguinte();
-                        if(verificaTokenLexema("function")||verificaTokenLexema("procedura")){
-                            //funcaoprocedura();
-                            token=this.seguinte();
-                            if(verificaTokenLexema("start")){
-                                Start();
-                                if(verificaTokenLexema("53")){
-                                    adicionarErro("depois do fim do programa contém tokens");
-                                }else{
-                                    adicionarErro("Sucesso");
-                                }
-                            }
-                        }
-                    }
+                    }  
                 }
             }
         }else{
