@@ -138,9 +138,17 @@ public class Sintatico {
                             }else{
                                 //certo
                             }
+                        }else{
+                            adicionarErro("Falta o 'start'");
                         }
+                    }else{
+                        adicionarErro("Falta o 'var");
                     }  
+                }else{
+                    adicionarErro("falta a 'struct'");
                 }
+            }else{
+                adicionarErro("falta o 'const'");
             }
         }else{
             adicionarErro("Programa não inicia com nenhuma das palavras reservadas");
@@ -234,8 +242,40 @@ public class Sintatico {
         }
     }
     
+  /*  !Bloco de declaração de structs
+<Struct> ::= 'typedef' 'struct' Id <Extends> <TipoStruct> <Struct> | <>
+<Extends> ::= 'extends' Id '{' | '{'
+<TipoStruct> ::= <Tipo> <IdStruct>
+<IdStruct> ::= Id <Struct2>
+<Struct2> ::= ',' <IdStruct> | ';' <Struct3>
+<Struct3> ::= '}' | <TipoStruct>
+*/
     public void contStruct(){
-        
+        token=this.seguinte();
+        while(tipo()==true){
+            token=this.seguinte();
+            if(verificaTokenTipo("Id")){
+                token= this.seguinte();
+                if(verificaTokenLexema(",")){
+                    
+                }else if(verificaTokenLexema(";")){
+                    token=this.seguinte();
+                    if(verificaTokenLexema("}")){
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    
+    public boolean tipo(){
+        if(token.getLexema()== "int" ||token.getLexema()== "boolean" ||token.getLexema()== "string" ||"real"== token.getLexema()){
+            return true;
+        }else if(verificaTokenTipo("Id")){
+            return true;
+        }
+    
+        return false;
     }
     
     public void variaveis() {
