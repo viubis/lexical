@@ -763,7 +763,7 @@ public class Sintatico {
    
     }
     
-    public void corpo(){
+    public void corpoteste(){
         token=this.seguinte();
         if(verificaTokenLexema("var")){
             variaveis();
