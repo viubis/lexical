@@ -128,7 +128,7 @@ public class Sintatico {
                         variaveis();
                         token=this.seguinte();
                         while(verificaTokenLexema("function")||verificaTokenLexema("procedure")){
-                            //funcaoprocedure();
+                            funcaoprocedure();
                             token=this.seguinte();
                         }
                         if(verificaTokenLexema("start")){
@@ -156,6 +156,89 @@ public class Sintatico {
     }
 
 
+    public void funcaoprocedure(){
+        if(verificaTokenLexema("function")){
+            token=this.seguinte();
+            if(tipo()==true){
+                token=this.seguinte();
+                if(verificaTokenTipo("identificador")){
+                    token=this.seguinte();
+                    if(verificaTokenLexema("(")){
+                        parametro();
+                    }else
+                        adicionarErro("falta (");
+                }else
+                    adicionarErro("identificador invalido");
+                        
+            }else
+                adicionarErro("tipo invalido");
+        }else if(verificaTokenLexema("procedure")){
+            token=this.seguinte();
+                if(verificaTokenTipo("identificador")){
+                    token=this.seguinte();
+                    if(verificaTokenLexema("(")){
+                        parametro();
+                    }else
+                        adicionarErro("falta (");
+                }else
+                    adicionarErro("identificador invalido");
+                
+        }else
+            return;
+    }    
+    
+    private void parametro(){
+        token=this.seguinte();
+        if(tipo()== true){
+            token = this.seguinte();
+            if(verificaTokenTipo("identificador")){
+                token=this.seguinte();
+                if(verificaTokenLexema("[")){
+                    token = this.seguinte();
+                    if(verificaTokenLexema("]")){
+                        token=this.seguinte();
+                        if(verificaTokenLexema("[")){
+                             token = this.seguinte();
+                            if(verificaTokenLexema("]")){
+                                token=this.seguinte();
+                                if(verificaTokenLexema(",")){
+                                    parametro();
+                                }else if(verificaTokenLexema(")")){
+                                    token=this.seguinte();
+                                    if(verificaTokenLexema("{")){
+                                        corpo();
+                                    }
+                                }
+                            }
+                         }else{
+                            if(verificaTokenLexema(",")){
+                                parametro();
+                            }else if(verificaTokenLexema(")")){
+                                token=this.seguinte();
+                                if(verificaTokenLexema("{")){
+                                    corpo();
+                                }
+                            }
+                        }
+                    }else
+                        adicionarErro("falta ]");
+                }else{
+                    if(verificaTokenLexema(",")){
+                        parametro();
+                    }else if(verificaTokenLexema(")")){
+                        token=this.seguinte();
+                        if(verificaTokenLexema("{")){
+                            corpo();
+                        }
+                            
+                    }
+                }
+                    
+            }else
+                adicionarErro("identificador invalido");
+        }
+    }
+    
     public void Const(){
         if(verificaTokenLexema("const")){
             token= this.seguinte();
@@ -289,14 +372,7 @@ public class Sintatico {
         }
     }
     
-  /*  !Bloco de declaração de structs
-<Struct> ::= 'typedef' 'struct' Id <Extends> <TipoStruct> <Struct> | <>
-<Extends> ::= 'extends' Id '{' | '{'
-<TipoStruct> ::= <Tipo> <IdStruct>
-<IdStruct> ::= Id <Struct2>
-<Struct2> ::= ',' <IdStruct> | ';' <Struct3>
-<Struct3> ::= '}' | <TipoStruct>
-*/
+
     public void contStruct(){
         token=this.seguinte();
         while(tipo()==true){
