@@ -1,6 +1,6 @@
 const(){
 }
-struct(){
+typedef struct(){
 }
 var(){
 }

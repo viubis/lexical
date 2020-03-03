@@ -1,1 +1,2 @@
  1 faltou {
+ 3 falta a 'struct'

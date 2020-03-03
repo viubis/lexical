@@ -154,17 +154,64 @@ public class Sintatico {
             adicionarErro("Programa não inicia com nenhuma das palavras reservadas");
         }
     }
-    
+
+
     public void Const(){
         if(verificaTokenLexema("const")){
             token= this.seguinte();
             if(verificaTokenLexema("{")){
-                //tipoConst();
-                token= this.seguinte();
+                token=this.seguinte();
+                while(tipo()==true){
+                    token= this.seguinte();
+                    if(verificaTokenTipo("Id")){
+                        token=this.seguinte();
+                        if(valor()==true){
+                            token=this.seguinte();
+                            if(verificaTokenLexema(",")){
+                                while(verificaTokenLexema(",")){
+                                    token=this.seguinte();
+                                     if(verificaTokenTipo("Id")){
+                                        token=this.seguinte();
+                                        if(valor()==true){
+                                            //certo ate aqui
+                                        }else
+                                            adicionarErro("Sem valor definido");
+                                    }else
+                                         adicionarErro("Identificador invalido");
+                                }while(verificaTokenLexema(";")){
+                                        token= this.seguinte();
+                                        if(verificaTokenTipo("Id")){
+                                            token=this.seguinte();
+                                            if(valor()==true){
+                                                token=this.seguinte();
+                                                if(verificaTokenLexema(",")){
+                                                    while(verificaTokenLexema(",")){
+                                                    token=this.seguinte();
+                                                    if(verificaTokenTipo("Id")){
+                                                        token=this.seguinte();
+                                                        if(valor()==true){
+                                                            //certo ate aqui
+                                                        }else
+                                                            adicionarErro("Sem valor definido");
+                                                        }else
+                                                            adicionarErro("Identificador invalido");
+                                                    }        
+                                                }
+
+                                            }    
+                                        }
+                                }
+                            }
+                        }
+                    }
+                
+                }
+                token=seguinte();
                 if(verificaTokenLexema("}")){
-                    // certo
-                }else
-                    adicionarErro("faltou }");
+                    //certo
+                }else{
+                    adicionarErro("falta }");
+                }
             }else
                 adicionarErro("faltou {");
         } 
@@ -278,6 +325,14 @@ public class Sintatico {
         return false;
     }
     
+    public boolean valor(){
+        if(verificaTokenTipo("numero")||verificaTokenTipo("identificador")||verificaTokenTipo("cadeiaDeCaractere")
+                ||verificaTokenLexema("true")||verificaTokenLexema("false")){
+            return true;
+        }
+        return false;
+    }
+    
     public void variaveis() {
         if (verificaTokenLexema("var")) {
             token = this.seguinte();
@@ -355,7 +410,6 @@ public class Sintatico {
         }
     }
     
-
     
     public void read(){
         if(verificaTokenLexema("read")){
@@ -570,6 +624,68 @@ public class Sintatico {
         }
     
     }  
+    
+     public void incremento() {
+        token = this.seguinte();
+        if (verificaTokenLexema("(")) {
+            token = this.seguinte();
+            if (verificaTokenLexema("++") || verificaTokenLexema("--")) {
+                token = this.seguinte();
+                if (verificaTokenTipo("identificador")) {
+                    vetor();
+                    //
+                }
+            } else if (verificaTokenTipo("identificador")) {
+                vetor();
+                token = this.seguinte();
+                if (verificaTokenLexema("++") || verificaTokenLexema("--")) {
+                    //
+                }
+            } else if (verificaTokenLexema("true") || verificaTokenLexema("false")) {
+                //
+            } else if (verificaTokenLexema("!")) {
+                if (verificaTokenTipo("identificador")) {
+                    //
+                } else if (verificaTokenLexema("true") || verificaTokenLexema("false")) {
+                    //
+                }
+            }
+        } else if (verificaTokenLexema("++") || verificaTokenLexema("--")) {
+            token = this.seguinte();
+            if (verificaTokenTipo("identificador")) {
+                vetor();
+            }
+        } else if (verificaTokenTipo("identificador")) {
+            vetor();
+            token = this.seguinte();
+            if (verificaTokenLexema("++") || verificaTokenLexema("--")) {
+
+            }
+        } else if (verificaTokenLexema("true") || verificaTokenLexema("false")) {
+            //
+        } else if (verificaTokenLexema("!")) {
+            if (verificaTokenTipo("identificador")) {
+                //
+            } else if (verificaTokenLexema("true") || verificaTokenLexema("false")) {
+                //
+            }
+        }
+    }
+     
+    public void atribuicaoVariavel(){
+        token = this.seguinte();
+        if(verificaTokenTipo("identificador")){
+            vetor();
+            if(verificaTokenLexema("=")){
+                verificaCaso();
+            }else{}
+        }else{}
+    }
+    
+    public void verificaCaso(){
+        incremento();
+   
+    }
     
     public void corpo(){
         
