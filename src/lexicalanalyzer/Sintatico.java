@@ -641,10 +641,6 @@ public class Sintatico {
         }
         return;
     }
-//<OpIndice> ::= OperadoresAritmeticos <OpI2> <OpIndice> | <>
-//<OpI2> ::= Numeros | Identificadores  
-//<Vetor> ::= '[' <OpI2><OpIndice> ']' <Matriz> | <>
-//<Matriz> ::= '[' <OpI2><OpIndice> ']' | <>
 
     public void vetor() {
         token = this.seguinte();
@@ -763,16 +759,55 @@ public class Sintatico {
    
     }
     
-    public void corpoteste(){
+    public void corpo(){
         token=this.seguinte();
         if(verificaTokenLexema("var")){
             variaveis();
+            token=this.seguinte();
+            while(comandos()==true){
+                if(verificaTokenLexema("if")){
+                    If();
+                }else if(verificaTokenLexema("while")){
+                    repeticaolaco();
+                }else if(verificaTokenLexema("read")){
+                    read();
+                }else if(verificaTokenLexema("print")){
+                    Print();
+                }else if(verificaTokenLexema("return")){
+                    comandosReturn();
+                }else if(verificaTokenLexema("local")||verificaTokenLexema("global")||verificaTokenTipo("identificador")){
+                    identificadorsemfuncao();
+                }
+                token=this.seguinte();
+            }
+            if(verificaTokenLexema("}")){
+                //certo
+            }else 
+                adicionarErro("faltou }");
         }else if(verificaTokenLexema("}")){
             //certo
             return;
         }
     }
     
+    public boolean comandos(){
+        if(verificaTokenLexema("if")){
+           return true;
+        }else if(verificaTokenLexema("while")){
+            return true;
+        }else if(verificaTokenLexema("read")){
+            return true;
+        }else if(verificaTokenLexema("print")){
+            return true;
+        }else if(verificaTokenLexema("return")){
+            return true;
+        }else if(verificaTokenLexema("local")||verificaTokenLexema("global")||verificaTokenTipo("identificador")){
+             return true;
+        }
+        return false;
+    }
+    
+
     public boolean incrementoReturn() {
          if (verificaTokenLexema("++") || verificaTokenLexema("--")) {
             token = this.seguinte();
