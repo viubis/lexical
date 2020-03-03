@@ -772,4 +772,39 @@ public class Sintatico {
             return;
         }
     }
+    
+    public boolean incrementoReturn() {
+         if (verificaTokenLexema("++") || verificaTokenLexema("--")) {
+            token = this.seguinte();
+            if (verificaTokenTipo("identificador")) {
+                return true;
+            }
+        } else if (verificaTokenTipo("identificador")) {
+            token = this.seguinte();
+            if (verificaTokenLexema("++") || verificaTokenLexema("--")) {
+                return true;
+            }
+        } else if (verificaTokenLexema("true") || verificaTokenLexema("false")) {
+            return true;
+        }
+         return false;
+    }
+    
+    public void comandosReturn(){
+        token=this.seguinte();
+        if(verificaTokenLexema("return")){
+            token=this.seguinte();
+            if(verificaTokenLexema(";")){
+                //certo
+            }else if(incrementoReturn()==true){
+                token=this.seguinte();
+                if(verificaTokenLexema(";")){
+                    //certo
+                }else 
+                    adicionarErro("falta ;");
+                
+            }else
+                adicionarErro("comando invalido");
+        }
+    }
 }
