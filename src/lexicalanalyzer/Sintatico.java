@@ -764,6 +764,12 @@ public class Sintatico {
     }
     
     public void corpo(){
-        
+        token=this.seguinte();
+        if(verificaTokenLexema("var")){
+            variaveis();
+        }else if(verificaTokenLexema("}")){
+            //certo
+            return;
+        }
     }
 }
