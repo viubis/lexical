@@ -1,8 +1,10 @@
-const(){
+const{
 }
-typedef struct(){
+struct{
 }
-var(){
+var{
+}
+procedure{
 }
 start(){
 }

@@ -133,25 +133,10 @@ public class Sintatico {
                         }
                         if(verificaTokenLexema("start")){
                             Start();
-                            if(verificaTokenLexema("53")){
-                                adicionarErro("depois do fim do programa contém tokens");
-                            }else{
-                                //certo
-                            }
-                        }else{
-                            adicionarErro("Falta o 'start'");
                         }
-                    }else{
-                        adicionarErro("Falta o 'var");
                     }  
-                }else{
-                    adicionarErro("falta a 'struct'");
                 }
-            }else{
-                adicionarErro("falta o 'const'");
             }
-        }else{
-            adicionarErro("Programa não inicia com nenhuma das palavras reservadas");
         }
     }
 
@@ -165,24 +150,17 @@ public class Sintatico {
                     token=this.seguinte();
                     if(verificaTokenLexema("(")){
                         parametro();
-                    }else
-                        adicionarErro("falta (");
-                }else
-                    adicionarErro("identificador invalido");
-                        
-            }else
-                adicionarErro("tipo invalido");
+                    }
+                }       
+            }
         }else if(verificaTokenLexema("procedure")){
             token=this.seguinte();
                 if(verificaTokenTipo("identificador")){
                     token=this.seguinte();
                     if(verificaTokenLexema("(")){
                         parametro();
-                    }else
-                        adicionarErro("falta (");
-                }else
-                    adicionarErro("identificador invalido");
-                
+                    }
+                }
         }else
             return;
     }    
@@ -220,8 +198,7 @@ public class Sintatico {
                                 }
                             }
                         }
-                    }else
-                        adicionarErro("falta ]");
+                    }
                 }else{
                     if(verificaTokenLexema(",")){
                         parametro();
@@ -234,8 +211,7 @@ public class Sintatico {
                     }
                 }
                     
-            }else
-                adicionarErro("identificador invalido");
+            }
         }
     }
     
@@ -270,14 +246,12 @@ public class Sintatico {
                                                 if(verificaTokenLexema(",")){
                                                     while(verificaTokenLexema(",")){
                                                     token=this.seguinte();
-                                                    if(verificaTokenTipo("Id")){
-                                                        token=this.seguinte();
-                                                        if(valor()==true){
-                                                            //certo ate aqui
-                                                        }else
-                                                            adicionarErro("Sem valor definido");
-                                                        }else
-                                                            adicionarErro("Identificador invalido");
+                                                        if(verificaTokenTipo("Id")){
+                                                            token=this.seguinte();
+                                                            if(valor()==true){
+                                                                //certo ate aqui
+                                                            }
+                                                        }
                                                     }        
                                                 }
 
@@ -292,11 +266,8 @@ public class Sintatico {
                 token=seguinte();
                 if(verificaTokenLexema("}")){
                     //certo
-                }else{
-                    adicionarErro("falta }");
                 }
-            }else
-                adicionarErro("faltou {");
+            }
         } 
     }
 
@@ -312,20 +283,10 @@ public class Sintatico {
                         token=this.seguinte();
                         if(verificaTokenLexema("}")){
                          //certo
-                        }else{
-                            adicionarErro("faltou }");
                         }
-                    }else{
-                        adicionarErro("faltou {");
                     }
-                }else{
-                    adicionarErro("faltou )");
                 }            
-            }else{
-                adicionarErro("faltou (");
             }
-        }else{
-            adicionarErro("faltou start");
         }
     }
     
@@ -344,31 +305,17 @@ public class Sintatico {
                                 contStruct();
                                 if(verificaTokenLexema("}")){
                                     //certo
-                                }else{
-                                    adicionarErro("erro não contem }");
                                 }
-                            }else{
-                                adicionarErro("erro não contem {");
                             }
-                        }else{
-                            adicionarErro("erro não contem identificador valido");
                         }
                     }else if(verificaTokenLexema("{")){
                         contStruct();
                         if(verificaTokenLexema("}")){
                                     //certo
                                 }
-                    }else{
-                        adicionarErro("Erro, não contem nem 'Extends' nem {");
                     }
-                }else{
-                    adicionarErro("erro não contem identificador valido");
                 }
-            }else{
-                adicionarErro("erro não contem struct");
             }
-        }else{
-            adicionarErro("erro");
         }
     }
     
@@ -417,12 +364,8 @@ public class Sintatico {
                 token = this.seguinte();
                 if (verificaTokenLexema("}")) {
                     //certo
-                } else {
-                    adicionarErro("faltou }");
                 }
-            } else {
-                adicionarErro("faltou {");
-            }
+            } 
         } else {
             return;
         }
@@ -447,12 +390,8 @@ public class Sintatico {
                 return;
             } else if (verificaTokenLexema(",")) {
                 estruturaVariaveis();
-            } else {
-                adicionarErro("faltou ;");
-            }
-        } else {
-            adicionarErro("faltou id");
-        }
+            } 
+        } 
         
     }
     
@@ -469,20 +408,10 @@ public class Sintatico {
                         token=this.seguinte();
                         if(verificaTokenLexema("}")){
                             //certo
-                        }else{
-                            adicionarErro("falta }");
                         }
-                    }else{
-                        adicionarErro("falta {");
-                    }    
-                }else{
-                    adicionarErro("falta )");
+                    }
                 }
-            }else{
-                adicionarErro("falta (");
             }
-        }else{
-            adicionarErro("erro palavra n reconhecida");
         }
     }
     
@@ -503,27 +432,15 @@ public class Sintatico {
                             token=this.seguinte();
                             if(verificaTokenLexema(";")){
                                 //certo
-                            } else{
-                                adicionarErro("faltou ;");
                             }
-                        } else{
-                            adicionarErro("faltou )");
-                        }
+                        } 
                     }else if(verificaTokenLexema(")")){
                         token=this.seguinte();
                         if(verificaTokenLexema(";")){
                             //certo
-                        }else{
-                            adicionarErro("faltou ;");
                         }
-                    } else{
-                        adicionarErro("faltou )");
-                    }
-                }else{
-                    adicionarErro("Esperado ')' ou ','");
+                    } 
                 }
-            }else{
-                adicionarErro("faltou (");
             }
         }
     }
@@ -536,16 +453,10 @@ public class Sintatico {
                 token=this.seguinte();
                 if(verificaTokenTipo("identificador")){
                     identificador2();
-                }else{
-                    adicionarErro("identificador nao valido");
                 }
-            }else{
-                adicionarErro("falta .");
             }
         }else if(verificaTokenTipo("identificador")){
             identificador2();
-        }else{
-            adicionarErro("identificador nao valido");
         }
     }
    
@@ -570,17 +481,9 @@ public class Sintatico {
                     if(verificaTokenLexema(")")){
                         if(verificaTokenLexema(";")){
                             //certo
-                        }else{
-                            adicionarErro("falta ;");
                         }
-                    }else{
-                        adicionarErro("falta )");
                     }
-               }else{
-                    adicionarErro("erro tem de ser 'String' , 'numero' ou Identificador");
-                }
-            }else{
-                adicionarErro("falta (");
+               }
             }
         }else{
             
@@ -602,22 +505,12 @@ public class Sintatico {
                             token = this.seguinte();
                             if (verificaTokenLexema("}")) {
                                 //escreva correto
-                            } else {
-                                adicionarErro("faltou '}'");
                             }
-                        } else {
-                            adicionarErro("faltou '{'");
                         }
-                    }else{
-                        adicionarErro("Faltou 'then'");
                     }
-                } else {
-                    adicionarErro("faltou ')'");
-                }
+                } 
 
-            } else {
-                adicionarErro("faltou '('");
-            }
+            } 
 
         }
         return;
@@ -630,15 +523,9 @@ public class Sintatico {
                 token = this.seguinte();
                 if (verificaTokenTipo("int") || verificaTokenTipo("identificador")) {
                     token = this.seguinte();
-                } else{
-                    adicionarErro("faltou o segundo argumento da condicao");
                 }
-            } else{
-                adicionarErro("faltou a condicao");
-            }
-        } else {
-            adicionarErro("faltou o primeiro argumento da condicao");
-        }
+            } 
+        } 
         return;
     }
 
@@ -651,12 +538,8 @@ public class Sintatico {
                 token = this.seguinte();
                 if (verificaTokenLexema("]")) {
                     matriz();
-                } else {
-                    adicionarErro("faltou ]");
                 }
-            } else {
-                adicionarErro("faltou indice");
-            }
+            } 
         } else {
             return;
         }
@@ -668,9 +551,7 @@ public class Sintatico {
             token = this.seguinte();
             if (verificaTokenTipo("int") || verificaTokenTipo("identificador")) {
                 opIndice();
-            } else {
-                adicionarErro("faltou o operando");
-            }
+            } 
         } else {
             return;
         }
@@ -685,11 +566,7 @@ public class Sintatico {
                 token = this.seguinte();
                 if (verificaTokenLexema("]")) {
                     return;
-                } else {
-                    adicionarErro("faltou ]");
                 }
-            } else {
-                adicionarErro("faltou o indice");
             }
         } else {
             return;
@@ -782,8 +659,7 @@ public class Sintatico {
             }
             if(verificaTokenLexema("}")){
                 //certo
-            }else 
-                adicionarErro("faltou }");
+            }
         }else if(verificaTokenLexema("}")){
             //certo
             return;
@@ -835,11 +711,8 @@ public class Sintatico {
                 token=this.seguinte();
                 if(verificaTokenLexema(";")){
                     //certo
-                }else 
-                    adicionarErro("falta ;");
-                
-            }else
-                adicionarErro("comando invalido");
+                }
+            }
         }
     }
 }
